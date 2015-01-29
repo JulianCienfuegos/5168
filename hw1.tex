@@ -34,8 +34,8 @@
 \setlength{\parindent}{0pt}
 \newcommand{\tab}[1]{\hspace*{4ex}\rlap{#1}}
 \newcommand{\tbf}[1]{\textbf{#1}}
-\newcommand{\ptl}[2]{\frac{\partial^2 #1}{\partial #2 ^2}}
-\newcommand{\pl}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ptl}[2]{\frac{d^2 #1}{d #2 ^2}}
+\newcommand{\pl}[2]{\frac{d #1}{d #2}}
 \newcommand{\iab}[2]{\int_#1^#2}
 \begin{document}
 \section*{Problem 1}
@@ -62,9 +62,23 @@ u''(x) = -\frac{sinh(x)}{sinh(1)}\\
 \includegraphics[scale=0.4]{three_poly.png}
 \end{center}
 \section*{Problem 2}
-\tbf{A)}
-\tbf{B)}
-\tbf{C)} $\phi_1$ does not satisfy the boundary conditions.
+\tbf{A)} We are solving $\iab{0}{1}\pl{v_i}{x}\pl{u}{x}dx=\iab{0}{1}xv_i dx$ given a set of test functions $\{\sin(k\pi x)\}_{k=1}^n$. We have: 
+\begin{equation*}
+\frac{d}{dx}\sin(k\pi x)=k\pi \cos(k\pi x)
+\end{equation*}
+and then notice that the $ij^{th}$ entry in the stiffness matrix \textbf{K} is $\iab{0}{1}ij\pi^2\cos(i\pi x)\cos(j\pi x)dx$, $i, j\in \{1, 2, \dots, n\}$. The set $\{\cos(k\pi x)\}_{i=1}^n$ is an orthogonal set. Therefore, all of the nondiagonal entries are 0. 
+The diagonal entries all integrate to $\frac{i^2\pi^2}2$. We integrate the $i^{th}$ element of the load vector, $\iab{0}{1}x\sin(i\pi x)dx = -\frac{\cos(i\pi)}{i\pi} = \frac{(-1)^{i+1}}{i\pi}$. Then we solve the system by dividing load vector elements by their corresponding diagonal elements and get $\alpha_i=\frac{2(-1)^{i+1}}{i^3\pi^3}$.
+
+\tbf{B)} The exact solution is found by integrating twice and applying the boundary conditions. We find the exact solution is $u(x) = -\frac{x^3}{6}+\frac{x}{6}$. My code finds $\vec{\alpha} = (0.25, 0.1666) = (\frac14, \frac16)$. When we substitute these as the coefficients of $u_N$:
+\begin{gather*}
+\frac14(x(1-x)) + \frac16(x(1-x)(\frac12 - x))=-\frac{x^3}{6}+\frac{x}{6}
+\end{gather*}
+As it turns out, the Galerkin Method can yield the exact solution to a problem.
+\begin{center}
+\includegraphics[scale=0.4]{two_poly_p2.png}
+\end{center}
+
+\tbf{C)} $\phi_1 \notin \mathcal{H}_0^1$ .
 \section*{Problem 1 Part C Code.} What can Python do? It can do anything.
 
 \begin{lstlisting}
