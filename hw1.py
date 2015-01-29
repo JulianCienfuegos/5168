@@ -41,9 +41,10 @@ def plot_func(title, img_name, f, g, X, err):
     green_patch = mpatches.Patch(color='green', label='Approximate Solution')
     plt.legend(handles=[red_patch, green_patch], loc = 1, prop={'size':10})
     ax=plt.gca()
-    col_labels=['Abs Error']
+    col_labels=['% Error']
     row_labels=['x=0.25','x=0.5', 'x=0.75']
-    table_vals=[[math.ceil(prec*err[0])/prec],[math.ceil(prec*err[1])/1000000],[math.ceil(prec*err[2])/prec]]
+    table_vals=[[math.ceil(prec*err[0])/prec],[math.ceil(prec*err[1])/prec]\
+        ,[math.ceil(prec*err[2])/prec]]
     # the rectangle is where I want to place the table
     the_table = plt.table(cellText=table_vals,
                       colWidths = [0.15],
@@ -54,34 +55,42 @@ def plot_func(title, img_name, f, g, X, err):
     
 # N = 1
 alpha = F_(m, M, 1)/K_(m, M, 1, 1)
+print alpha
 u_approx = lambda x: alpha*phi(x,1)
-err = [abs(u(0.25) - u_approx(0.25)), abs(u(0.5) - u_approx(0.5)), abs(u(0.75) - u_approx(0.75))]
-plot_func('One Basis Func', 'one.png', u, u_approx, X, err)
+err = [abs(u(0.25) - u_approx(0.25))/u(0.25), 
+       abs(u(0.5) - u_approx(0.5))/u(0.5), 
+       abs(u(0.75) - u_approx(0.75))/u(0.75)]
+plot_func('One Basis Function', 'one.png', u, u_approx, X, err)
 
 # N = 2
-K2 = array([[K_(m, M, 1, 1), K_(m, M, 1, 2)],
+K = array([[K_(m, M, 1, 1), K_(m, M, 1, 2)],
             [K_(m, M, 2, 1), K_(m, M, 2, 2)]])
-F2 = array([F_(m, M, 1),
+F = array([F_(m, M, 1),
             F_(m, M, 2)])
             
-alpha = sls(K2, F2)
-u_app = lambda x: alpha[0]*phi(x, 1) + alpha[1]*phi(x, 2)
-err = [abs(u(0.25) - u_app(0.25)), abs(u(0.5) - u_app(0.5)), abs(u(0.75) - u_app(0.75))]
-plot_func('Two Basis Functions', 'two.png', u, u_app, X, err)
+alpha = sls(K, F)
+print alpha
+u_approx = lambda x: alpha[0]*phi(x, 1) + alpha[1]*phi(x, 2)
+err = [abs(u(0.25) - u_approx(0.25))/u(0.25),
+       abs(u(0.5) - u_approx(0.5))/u(0.5),
+       abs(u(0.75) - u_approx(0.75))/u(0.75)]
+plot_func('Two Basis Functions', 'two.png', u, u_approx, X, err)
 
 # N = 3
-K3 = array([[K_(m, M, 1, 1), K_(m, M, 1, 2), K_(m, M, 1, 3)],
+K = array([[K_(m, M, 1, 1), K_(m, M, 1, 2), K_(m, M, 1, 3)],
             [K_(m, M, 2, 1), K_(m, M, 2, 2), K_(m, M, 2, 3)],
             [K_(m, M, 3, 1), K_(m, M, 3, 2), K_(m, M, 3, 3)]])
 
-F3 = array([F_(m, M, 1),
+F = array([F_(m, M, 1),
             F_(m, M, 2),
             F_(m, M, 3)])
             
-alpha = sls(K3, F3)
-u_a = lambda x: alpha[0]*phi(x, 1) + alpha[1]*phi(x, 2) + alpha[2]*phi(x,3)
-err = [abs(u(0.25) - u_a(0.25)), abs(u(0.5) - u_a(0.5)), abs(u(0.75) - u_a(0.75))]
-plot_func('Three Basis Functions', 'three.png', u, u_a, X, err)
+alpha = sls(K, F)
+u_approx = lambda x: alpha[0]*phi(x, 1) + alpha[1]*phi(x, 2) + alpha[2]*phi(x,3)
+err = [abs(u(0.25) - u_approx(0.25))/u(0.25),
+       abs(u(0.5) - u_approx(0.5))/u(0.5),
+       abs(u(0.75) - u_approx(0.75))/u(0.75)]
+plot_func('Three Basis Functions', 'three.png', u, u_approx, X, err)
 
 
     
