@@ -1,0 +1,4 @@
+
+alpha = 1.0/12
+psi1 = lambda x: 2.0*x
+psi2 = lambda x: 2.0*(0.5 - x)

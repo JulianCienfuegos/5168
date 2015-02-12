@@ -1,0 +1,32 @@
+function psi = lagrange_poly(k)
+% k is the degree of the desired shape functions.
+xi_m = -1; % minimum xi
+xi_M =  1; % maximum xi
+xi = linspace(xi_m, xi_M, k+1); % generate k+1 nodes.
+power_rule = [k:-1:0];
+%{
+To make the coefficients we first convolute the numerator terms in the 
+expression for the lagrange polynomial.
+Then, we multiply the denominator terms and multiply the denominator
+by the coefficient array. 
+We have to go through this for each basis function.
+%}
+
+for func=1:k+1
+    f = [1]; % Initialize identity elements.
+    denom = 1;
+    for factor = 1:k+1
+        % In this loop we will multiply the numerator and
+        % denominator factors.
+        if (factor ~= func)
+            f = conv(f, [1, -xi(factor)]);
+            denom = denom * (xi(func) - xi(factor)); 
+        end
+    end
+    F = f/denom;
+    psi(func).fun = F;
+    dF = F.*power_rule; % apply the power  
+    psi(func).der = dF(1:end-1);
+end
+
+end
