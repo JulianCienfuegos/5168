@@ -13,17 +13,6 @@
 
 \usepackage{graphicx}
 \usepackage{listings}
-\lstset{language=Python,
-		keywordstyle=\color{blue},
-		commentstyle=\color{mygreen},
-		numbers=left,
-		numbersep=5pt,
-	    numberstyle=\color{mymauve}, % the style that is used for the line-numbers
-        rulecolor=\color{green},         
-        showspaces=false,                
-  		showstringspaces=false,          % underline spaces within strings only
-  		showtabs=false,                  % show tabs within strings adding particular underscores
-  		stepnumber=1}
 
 \allowdisplaybreaks
 
@@ -72,6 +61,20 @@ k_{33} = \iab{0.5}{1.0}(1+x)(16)dx = 14
 \begin{center}
 \includegraphics[scale = 0.5]{prob1.png}
 \end{center}
+\lstset{language=Python,
+		keywordstyle=\color{blue},
+		commentstyle=\color{mygreen},
+		numbers=left,
+		numbersep=5pt,
+	    numberstyle=\color{mymauve}, % the style that is used for the line-numbers
+        rulecolor=\color{green},         
+        showspaces=false,                
+  		showstringspaces=false,          % underline spaces within strings only
+  		showtabs=false,                  % show tabs within strings adding particular underscores
+  		stepnumber=1,
+  		frame=single,
+  		rulecolor=\color{black}}
+
 \begin{lstlisting}
 from numpy import log, linspace, array
 from numpy.linalg import solve
@@ -110,10 +113,12 @@ x3 = linspace(0.5, 0.75, 10)
 x4 = linspace(0.75, 1, 10)
 
 plt.subplot(2, 1, 2)
-plt.plot(x1, el1(x1), 'r', x2, el2(x2), 'r', x3, el3(x3), 'r', x4, el4(x4), 'r', x, u(x), 'b')
+plt.plot(x1, el1(x1), 'r', x2, el2(x2), 'r', x3, el3(x3), 'r',\
+	x4, el4(x4), 'r', x, u(x), 'b')
 plt.title('Problem 1b')
 plt.show()
 \end{lstlisting}
+
 \section*{Problem 2}
 For the cubic master element we need four nodes over an interval, and for convenience we use $[-1, 1]$. This gives us the nodes: $\xi_1 = -1,\; \xi_2= -\frac13,\;\xi_3=\frac13,\;\xi_4=1.$
 Then, the Lagrange shape functions are given by:
@@ -129,47 +134,79 @@ f(\xi, \xi_i) = \frac{(\xi - \xi_1)...(\xi-\xi_{i-1})(\xi - \xi_{i+1})...(\xi - 
 \begin{center}
 \includegraphics[scale = 0.7]{prob2.png}
 \end{center}
-
+\newpage
 \section*{Problem 3}
+Below I output the results of the my code for $k=3$, and then print out the decimal values of the fractions which appear as the coefficients for you to compare with Problem 2. The numbers are the same.
 
+\lstset{stepnumber=0, frame=single}
+\begin{lstlisting}
+psi = lagrange_poly(3);
+
+psi(1) 
+ans = 
+
+    fun: [-0.5625 0.5625 0.0625 -0.0625]
+    der: [-1.6875 1.1250 0.0625]
+
+psi(2)
+ans = 
+
+    fun: [1.6875 -0.5625 -1.6875 0.5625]
+    der: [5.0625 -1.1250 -1.6875]
+
+psi(3)
+ans = 
+
+    fun: [-1.6875 -0.5625 1.6875 0.5625]
+    der: [-5.0625 -1.1250 1.6875]
+
+psi(4)
+ans = 
+
+    fun: [0.5625 0.5625 -0.0625 -0.0625]
+    der: [1.6875 1.1250 -0.0625]
+
+
+[9/16, 27/16, 1/16]
+ans =
+
+    0.5625    1.6875    0.0625
+
+\end{lstlisting}
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style}, 
+    stepnumber=1   
+}
 \begin{lstlisting}
 function psi = lagrange_poly(k)
 %{
-k is the degree of the basis functions.
-The general structure of this code is:
-1) Set some necessary variables.
-2) To make the coefficients we first convolute the numerator terms in the 
-   expression for the lagrange polynomial.
-   Then, we multiply the denominator terms and multiply the denominator
-   by the coefficient array. 
-   We have to go through this for each basis function.
-3) Store the basis functions and their derivatives.
+    k is the degree of the basis functions.
+    First, set up the xi and y coordinates for the polyfit.
+    Then, polyfit the coordinates for each set of y coordinates
+    and this is a psi function. Use polyder to get the 
+    derivtives.
 %}
 
-xi_m = -1; % minimum xi
-xi_M =  1; % maximum xi
-xi = linspace(xi_m, xi_M, k+1); % generate k+1 nodes.
-
+xi = linspace(-1, 1, k+1); 
 for func=1:k+1
-    
-    % Initialize identity elements.
-    f = [1];
-    denom = 1;
-    
-    % In this loop we will multiply the numerator and denominator factors.
-    for factor = 1:k+1
-        if (factor ~= func)
-            f = conv(f, [1, -xi(factor)]);
-            denom = denom * (xi(func) - xi(factor)); 
-        end
-    end
-    
-    % Set the basis function and its derivative.
-    F = f/denom;
+    y = zeros(1,k+1);
+    y(func) = 1;
+    F = polyfit(xi, y, k);
     psi(func).fun = F;
-    power_rule = [k:-1:0];
-    dF = F.*power_rule;          % Apply power rule.
-    psi(func).der = dF(1:end-1); % Trim off end 0 element.
+    psi(func).der = polyder(F);
 
 end
 \end{lstlisting}
