@@ -1,0 +1,15 @@
+read_1D_mesh();
+read_1D_input();
+K = zeros(nnodes);
+F = zeros(nnodes, 1);
+psi = lagrange_poly(p); % p is assigned in read_1d_mesh
+[ke, fe] = element1d(psi);
+for n = 1:nelems
+    node_list = CONN(n,:);
+    h = XNODES(node_list(2)) - XNODES(node_list(1)); 
+    k = (2/h)*KofX(n)*ke.k + (h/2)*BofX(n)*ke.b;
+    f = (h/2)*FofX(n)*fe;
+    % Now plug these contributions into the appropriate place.
+    [K, F] = assemble1D(ke, fe, K, F, node_list);
+end
+[K, F] = e
