@@ -1,7 +1,0 @@
-function [K, F] = enforce_boundaries(K, F, NODEBC1, NODEBC2)
-if length(NODEBC1 ~= 0)
-    for i = 1:length(NODEBC1)
-        K(NODEBC1(i)) = 
-    end
-end
-end

@@ -10,10 +10,26 @@
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
-
+\definecolor{mylilas}{RGB}{170,55,241}
 \usepackage{graphicx}
 \usepackage{listings}
-
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    flexiblecolumns=true,
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style}, 
+    stepnumber=1  
+}
 \allowdisplaybreaks
 
 \lhead{FEM 5168 HW3}
@@ -26,7 +42,169 @@
 \newcommand{\ptl}[2]{\frac{\partial^2 #1}{\partial #2 ^2}}
 \newcommand{\der}[2]{\frac{d #1}{d #2}}
 \newcommand{\iab}[2]{\int_{ #1 }^{ #2 }}
-\begin{document}
-\section*{Problem 1}
 
+\begin{document}
+\section*{Parts a - c}
+\subsection*{Element1D}
+\begin{lstlisting}
+function [ke, fe] = element1d(psi)
+    %{
+        The shape functions will have degree d = length(psi) - 1.
+        Therefore the product of two of these functions will have degree
+        2*d.
+        The derivatives of the shape functions will have degree d - 1. 
+        Therefore the product of any two of these functions will have
+        degree 2*d - 2. 
+    %}
+
+    d = length(psi) - 1;
+    % Different integrals need different numbers of points.
+    n_kk = ceil(((2*d-2) + 1)/2);
+    [x_gauss_kk, w_gauss_kk] = gauss_points_and_weights(n_kk);
+
+    n_kb = ceil((2*d+1)/2);
+    [x_gauss_kb, w_gauss_kb] = gauss_points_and_weights(n_kb);
+
+    n_f = ceil((d+1)/2);
+    [x_gauss_f, w_gauss_f] = gauss_points_and_weights(n_f);
+    % memory allocation
+    ke.k = zeros(d+1);
+    ke.b = zeros(d+1);
+    fe = zeros(d+1, 1);
+
+    for i = 1:d+1
+        for j = 1:i
+            % make the components of ke
+            g_kk = conv(psi(i).der, psi(j).der);
+            g_gauss_kk = polyval(g_kk, x_gauss_kk);
+            ke.k(i, j) = dot(w_gauss_kk, g_gauss_kk);
+
+            g_kb = conv(psi(i).fun, psi(j).fun);
+            g_gauss_kb = polyval(g_kb, x_gauss_kb);
+            ke.b(i, j) = dot(w_gauss_kb, g_gauss_kb);
+            % enforce symmetry
+            ke.k(j, i) = ke.k(i, j);
+            ke.b(j, i) = ke.b(i, j);
+        end
+        % make the componenets of fe.
+        f_gauss = polyval(psi(i).fun, x_gauss_f);
+        fe(i) = dot(w_gauss_f, f_gauss);
+    end
+end
+\end{lstlisting}
+\subsection*{Global Assembly}
+\begin{lstlisting}
+function [K,F] = assemble1D(k, f, K, F, node_list)
+    s = node_list(1);
+    t = node_list(2);
+    K(s:t, s:t) = K(s:t, s:t) + k;
+    F(s:t) = F(s:t) + f;
+end
+\end{lstlisting}
+\subsection*{Boundary Conditions}
+\begin{lstlisting}
+function [K, F] = enforce_boundaries(K, F, NODEBC1, NODEBC2, VBC1, VBC2, KofX)
+    for i = 1:length(NODEBC1)
+        idx = NODEBC1(i);             % Where is the dirichlet condition?
+        if(idx~=0)		
+            F = F - VBC1(i)*K(:,idx); % Modify F
+            F(idx) = VBC1(i);
+            K(idx,:) = 0;             % Zero out the row and column.
+            K(:,idx) = 0;
+            K(idx, idx) = 1;          % Set diagonal entry to one.
+        end
+    end
+    for i = 1:length(NODEBC2)
+        idx = NODEBC2(i);             % where is the neumann condition?
+        if (idx == 1)                 % modify f
+            F(idx) = F(idx) - KofX(1)*VBC2(i);
+        else if (idx > 1)
+            F(idx) = F(idx) + KofX(end)*VBC2(i);
+        end        
+    end
+end
+\end{lstlisting}
+\subsection*{One Script to Rule Them All}
+\begin{lstlisting}
+%{
+    Solve a problem using the FEM.
+%}
+read_1D_mesh();
+read_1D_input();
+K = zeros(nnodes);
+F = zeros(nnodes, 1);
+psi = lagrange_poly(p); % p is assigned in read_1d_mesh
+[ke, fe] = element1d(psi);
+for n = 1:nelems
+    node_list = CONN(n,:);
+    h = XNODES(node_list(2)) - XNODES(node_list(1)); 
+    % Contributions to the global matrix
+    k = (2/h)*KofX(n)*ke.k + (h/2)*BofX(n)*ke.b;
+    f_c = (h/2)*FofX(n)*fe;
+    % Now plug these contributions into the appropriate place.
+    [K, F] = assemble1D(k, f_c, K, F, node_list);
+end
+[K, F] = enforce_boundaries(K, F, NODEBC1, NODEBC2, VBC1, VBC2, KofX);
+
+% Calculate a solution
+u = K\F;
+
+% Compare the solution to the real thing. View the plot and the error.
+d = length(u);
+u_exact = @(x) log(1+x)/log(2) - x;
+x = linspace(0, 1, d);
+figure()
+plot(x, u_exact(x), 'b', x, u, 'r')
+legend('y = u\_exact(x)','y = u\_approx','Location','northeast')
+title('Comparison of FEM Solution to Exact Solution.')
+x1 = 0.7;
+y1 = 0.075;
+str1 = strcat('Norm of error: ', num2str(norm(u' - u_exact(x), inf)));
+text(x1, y1, str1);
+xlabel('x')
+ylabel('u(x)')
+\end{lstlisting}
+\section*{Part d}
+\subsection*{Test Problem 1}
+\lstset{stepnumber=0}
+\begin{lstlisting}
+
+K =
+
+    1.0000         0         0         0         0         0
+         0   30.0000  -25.5000         0         0         0
+         0  -25.5000   32.5000   -7.0000         0         0
+         0         0   -7.0000   22.5000  -15.5000         0
+         0         0         0  -15.5000   20.0000         0
+         0         0         0         0         0    1.0000
+
+
+F =
+
+         0
+    0.1500
+    0.1250
+    0.1500
+    0.2500
+         0
+\end{lstlisting}
+\subsection*{Test Problem 2}
+\begin{lstlisting}
+K =
+
+    1.0000         0         0         0         0
+         0    8.1667   -3.9583         0         0
+         0   -3.9583    8.1667   -3.9583         0
+         0         0   -3.9583    8.1667   -3.9583
+         0         0         0   -3.9583    4.0833
+
+
+F =
+
+    2.0000
+    8.4792
+    0.6250
+    0.6875
+    2.3594
+\end{lstlisting}
 \end{document}
