@@ -1,0 +1,194 @@
+diary on
+FEM_main
+Mesh file generated successfully!
+Input file generated successfully!
+    0.0250
+
+FEM_main
+Mesh file generated successfully!
+Input file generated successfully!
+    0.6250
+
+FEM_main
+Mesh file generated successfully!
+Input file generated successfully!
+    0.1562
+
+u
+
+u =
+
+   1.0e+03 *
+
+         0
+    0.9906
+    1.9380
+    2.8041
+    3.5566
+    4.1693
+    4.6216
+    4.8988
+    4.9922
+    4.8988
+    4.6216
+    4.1693
+    3.5566
+    2.8041
+    1.9380
+    0.9906
+         0
+
+XNODES
+
+XNODES =
+
+         0
+    0.6250
+    1.2500
+    1.8750
+    2.5000
+    3.1250
+    3.7500
+    4.3750
+    5.0000
+    5.6250
+    6.2500
+    6.8750
+    7.5000
+    8.1250
+    8.7500
+    9.3750
+   10.0000
+
+for i = 1:15
+XNODES(i+1) - X(i)
+end
+{Undefined function 'X' for input arguments of type 'double'.
+} 
+for i = 1:15
+XNODES(i+1) - XNODES(i)
+end
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+
+ans =
+
+    0.6250
+
+2.5/.625
+
+ans =
+
+     4
+
+.625/4
+
+ans =
+
+    0.1562
+
+FEM_main
+Mesh file generated successfully!
+Input file generated successfully!
+Percent error is :
+    2.5000
+
+FEM_main
+Mesh file generated successfully!
+Input file generated successfully!
+Percent error is :
+    0.6250
+
+FEM_main
+Mesh file generated successfully!
+Input file generated successfully!
+Percent error is :
+    0.1562
+
+
+.1562/(.625*.625)
+
+ans =
+
+    0.3999
+
+.625/(2.5*2.5)
+
+ans =
+
+    0.1000
+
+.1562/(.625*.625)
+
+ans =
+
+    0.3999
+
