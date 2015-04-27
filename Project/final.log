@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  25 APR 2015 21:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  27 APR 2015 18:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -9,8 +9,8 @@ LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2014/texmf-dist/tex/latex/base/size12.clo
-File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -237,12 +237,12 @@ LaTeX Font Info:    ... okay on input line 49.
 * \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=12.0pt
+* \topskip=11.0pt
 * \footskip=30.0pt
-* \marginparwidth=44.0pt
+* \marginparwidth=59.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -328,13 +328,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 22.0pt.
+ Make it at least 18.0pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
- <./prob1.jpg>] <prob12b.jpg, id=15, 562.1pt x 421.575pt>
+ <./prob1.jpg>] <prob12b.jpg, id=16, 562.1pt x 421.575pt>
 File: prob12b.jpg Graphic file (type jpg)
  <use prob12b.jpg>
 Package pdftex.def Info: prob12b.jpg used on input line 89.
@@ -346,35 +346,130 @@ File: convergence.png Graphic file (type png)
 Package pdftex.def Info: convergence.png used on input line 121.
 (pdftex.def)             Requested size: 469.75502pt x 176.25594pt.
 
-Overfull \hbox (20.88867pt too wide) in paragraph at lines 121--122
-[][] 
+Overfull \hbox (19.4667pt too wide) in paragraph at lines 121--122
+ [] 
  []
 
-[3 <./convergence.png>] (./final.aux) ) 
+<211.jpg, id=23, 578.16pt x 225.9642pt>
+File: 211.jpg Graphic file (type jpg)
+ <use 211.jpg>
+Package pdftex.def Info: 211.jpg used on input line 129.
+(pdftex.def)             Requested size: 469.75502pt x 183.59544pt.
+
+<212.jpg, id=24, 588.7596pt x 225.9642pt>
+File: 212.jpg Graphic file (type jpg)
+ <use 212.jpg>
+Package pdftex.def Info: 212.jpg used on input line 130.
+(pdftex.def)             Requested size: 469.75502pt x 180.29233pt.
+
+<213.jpg, id=25, 596.7093pt x 225.9642pt>
+File: 213.jpg Graphic file (type jpg)
+ <use 213.jpg>
+Package pdftex.def Info: 213.jpg used on input line 131.
+(pdftex.def)             Requested size: 469.75502pt x 177.89256pt.
+
+Overfull \hbox (19.4667pt too wide) in paragraph at lines 129--133
+[][]
+ []
+
+
+Overfull \hbox (19.4667pt too wide) in paragraph at lines 129--133
+[]
+ []
+
+
+Overfull \hbox (19.4667pt too wide) in paragraph at lines 129--133
+[] 
+ []
+
+[3 <./convergence.png>] [4 <./211.jpg> <./212.jpg> <./213.jpg>]
+<21b.png, id=34, 639.38875pt x 99.37125pt>
+File: 21b.png Graphic file (type png)
+ <use 21b.png>
+Package pdftex.def Info: 21b.png used on input line 141.
+(pdftex.def)             Requested size: 422.77664pt x 65.70653pt.
+
+<err.png, id=35, 596.2275pt x 225.9642pt>
+File: err.png Graphic file (type png)
+ <use err.png>
+Package pdftex.def Info: err.png used on input line 147.
+(pdftex.def)             Requested size: 422.77664pt x 160.22882pt.
+
+<21du.png, id=36, 602.25pt x 225.9642pt>
+File: 21du.png Graphic file (type png)
+ <use 21du.png>
+Package pdftex.def Info: 21du.png used on input line 153.
+(pdftex.def)             Requested size: 422.77664pt x 158.63243pt.
+
+<21ds.jpg, id=37, 598.1547pt x 225.9642pt>
+File: 21ds.jpg Graphic file (type jpg)
+ <use 21ds.jpg>
+Package pdftex.def Info: 21ds.jpg used on input line 157.
+(pdftex.def)             Requested size: 422.77664pt x 159.71852pt.
+ [5 <./21b.png> <./err.png> <./21du.png> <./21ds.jpg>] <P221.jpg, id=44, 595.26
+39pt x 225.9642pt>
+File: P221.jpg Graphic file (type jpg)
+
+<use P221.jpg>
+Package pdftex.def Info: P221.jpg used on input line 176.
+(pdftex.def)             Requested size: 422.77664pt x 160.48741pt.
+ <p222.jpg, id=45, 602.25pt x 225.9642pt>
+File: p222.jpg Graphic file (type jpg)
+ <use p222.jpg>
+Package pdftex.def Info: p222.jpg used on input line 177.
+(pdftex.def)             Requested size: 422.77664pt x 158.63243pt.
+
+<p223.jpg, id=46, 596.2275pt x 225.9642pt>
+File: p223.jpg Graphic file (type jpg)
+ <use p223.jpg>
+Package pdftex.def Info: p223.jpg used on input line 178.
+(pdftex.def)             Requested size: 422.77664pt x 160.22882pt.
+ [6 <./P221.jpg> <./p222.jpg>] <2ERROR.jpg, id=50, 602.25pt x 225.9642pt>
+File: 2ERROR.jpg Graphic file (type jpg)
+ <use 2ERROR.jpg>
+Package pdftex.def Info: 2ERROR.jpg used on input line 195.
+(pdftex.def)             Requested size: 422.77664pt x 158.63243pt.
+
+<22UE_.jpg, id=51, 589.2414pt x 225.9642pt>
+File: 22UE_.jpg Graphic file (type jpg)
+ <use 22UE_.jpg>
+Package pdftex.def Info: 22UE_.jpg used on input line 201.
+(pdftex.def)             Requested size: 422.77664pt x 162.13208pt.
+ [7 <./p223.jpg> <./2ERROR.jpg>] [8 <./22UE_.jpg>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 221.
+
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 221.
+ [9] [10] [11]
+[12] (./final.aux) ) 
 Here is how much of TeX's memory you used:
- 4893 strings out of 493117
- 66083 string characters out of 6135433
- 208160 words of memory out of 5000000
- 8288 multiletter control sequences out of 15000+600000
- 9407 words of font info for 36 fonts, out of 8000000 for 9000
+ 5128 strings out of 493117
+ 68599 string characters out of 6135433
+ 349160 words of memory out of 5000000
+ 8510 multiletter control sequences out of 15000+600000
+ 10012 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,13n,43p,418b,1596s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/font
-s/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2014/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2014/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2014/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmti12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmtt12.pfb>
-Output written on final.pdf (3 pages, 513705 bytes).
+ 38i,13n,43p,668b,1594s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmex10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8
+.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.
+pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
+fb>
+Output written on final.pdf (12 pages, 3611863 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 107 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
 
